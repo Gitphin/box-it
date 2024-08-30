@@ -5,6 +5,7 @@
 ## Create auto-sort script (Python)
 - Sort by file type
 - Make sub-directories for each file type
+- Have it work for Windows/Mac/Linux OS
 
 ## Customizations
 - Sort/Assign by name, date
@@ -21,6 +22,6 @@
 - Desktop/color theming? (optional)
 - Add current time 
 
-## Installer (?)
+## Installer/Finishing touches (?)
 - Update README
 - Make an installer? Could just leave as a script
