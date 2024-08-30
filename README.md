@@ -18,7 +18,9 @@
 - Add buttons & filter options within menu
 - Clean up GUI, add icon / other metadata
 - Add start-up screen (optional)
-- Desktop theming? (optional)
+- Desktop/color theming? (optional)
+- Add current time 
 
 ## Installer (?)
+- Update README
 - Make an installer? Could just leave as a script
