@@ -3,12 +3,12 @@
 # TODO:
 
 ## Create auto-sort script (Python)
-- Sort by file type
-- Make sub-directories for each file type
-- Have it work for Windows/Mac/Linux OS
+- ~~Sort by file type~~
+- ~~Make sub-directories for each file type~~
+- ~~Have it work for Windows/Mac/Linux OS~~
 
 ## Customizations
-- Sort/Assign by name, date
+- ~~Sort/Assign by name, date~~
 - Filter out specific files into a different sub-dir (ex: Images, Documents, Coding, etc.)
 - Change where it stores these files (folder type)
 - Be able to change what it names each folder
