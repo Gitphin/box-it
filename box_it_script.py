@@ -4,7 +4,7 @@ import shutil
 import pathlib
 from config import Config
 
-config = Config()
+config = Config(debug=True)
 
 def file_sorting(file_ext):
     """Get file type to store file in proper folder"""
@@ -18,9 +18,13 @@ def check_exists(path):
     if not path.exists():
         path.mkdir(parents=True)
 
-# Load in saved config for folder grouping/extensions
+# Load in saved config 
 config.load_ext_hash()
+config.load_pref_hash()
+config.load_main_path_hash()
+# config.update_path(pathlib.Path.home() / 'Desktop' / 'Things')
 
+# Get user input for file name (WILL CHANGE TO DRAG/DROP"
 file_input = input("Enter file name with extension: ") 
 file_path = pathlib.Path.cwd() / file_input
 
@@ -39,10 +43,10 @@ if len(get_tag) >= 2:
     os.rename(file_path, pathlib.Path.cwd() / (file_input))
     file_path = pathlib.Path.cwd() / file_input
     tag_name = get_tag[-1].lower()
-    sort_dir = config.main_folder_path / tag_name
+    sort_dir = config.main_folder_path / config.name / tag_name
     check_exists(sort_dir)
 else:
-    sort_dir = config.main_folder_path / config.main
+    sort_dir = config.main_folder_path / config.name / config.main
     check_exists(sort_dir)
     
 # Get proper folder type, uses helper file_sorting to look through file_extension hash
