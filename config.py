@@ -14,7 +14,7 @@ class Config:
             "Videos": ['mp4', 'mkv', 'mov', 'avi', 'flv', 'wmv'],
             "Coding": ['py', 'js', 'html', 'css', 'cpp', 'java', 'cs', 'rb', 'php', 'ts'],
             "Documents": ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'odt'],
-            "Misc": ['zip', 'rar', '7z', 'iso', 'exe', 'bat', 'dmg', 'bin', 'apk']
+            "Misc": []
         }
 
     def update_name(self, new):
@@ -37,7 +37,7 @@ class Config:
             except Exception as e:
                 print(f"Could not load types from {self.ext_path}: {e}")
         else:
-            print(f"File {self.ext_path} could not be loaded.")
+            print(f"Loaded default extensions in")
 
     def new_folder_type(self, name, exts):
         """Add new category/folder"""
