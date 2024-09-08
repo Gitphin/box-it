@@ -15,14 +15,13 @@
 - ~~Add a tagging system (ex: foo-TAG.png)~~
 
 ## Visualization (PyGUI?)
-- Add GUI
-- Add Folder drag & drop feature
+- ~~Add GUI (PyQT)~~
+- ~~Add Folder drag & drop feature~~
 - Add buttons & filter options within menu
 - Clean up GUI, add icon / other metadata
 - Add start-up screen (optional)
 - Desktop/color theming? (optional)
-- Add current time 
 
 ## Installer/Finishing touches (?)
 - Update README
-- Make an installer? Could just leave as a script
+- Make an installer? Could just leave as a script (will leave as script likely)
