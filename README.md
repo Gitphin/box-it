@@ -9,9 +9,9 @@
 
 ## Customizations
 - ~~Sort/Assign by name, date~~
-- Filter out specific files into a different sub-dir (ex: Images, Documents, Coding, etc.)
-- Change where it stores these files (folder type)
-- Be able to change what it names each folder
+- ~~Filter out specific files into a different sub-dir (ex: Images, Documents, Coding, etc.)~~
+- ~~Change where it stores these files (folder type)~~
+- ~~Be able to change what it names each folder~~
 
 ## Visualization (PyGUI?)
 - Add GUI
