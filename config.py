@@ -151,7 +151,7 @@ class Config:
                 self.main_folder_path = path
                 if self.debug:
                     print(f"Changed main folder path to {new_path}")
-        self.update_main_path_hash()
+                self.update_main_path_hash()
             except Exception as e:
                 print(f"Error copying or removing the directory: {e}")
                 return -1
@@ -160,63 +160,63 @@ class Config:
             return -1
 
     def update_name(self, new_name):
-    """Updates name of wrapper folder"""
-    new_path = self.main_folder_path / new_name
-    old_path = self.main_folder_path / self.name
-    
-    if new_path == old_path:
-        print("Cannot be the same path")
-        return -1
+        """Updates name of wrapper folder"""
+        new_path = self.main_folder_path / new_name
+        old_path = self.main_folder_path / self.name
         
-    if os.path.exists(new_path):
-        print(f"Destination path '{new_name}' already exists!")
-        return -1
+        if new_path == old_path:
+            print("Cannot be the same path")
+            return -1
+            
+        if os.path.exists(new_path):
+            print(f"Destination path '{new_name}' already exists!")
+            return -1
 
-    try:
-        shutil.copytree(old_path, new_path)
-        if self.debug:
-            print(f"Copied folder from {old_path} to {new_path}")
-        shutil.rmtree(old_path)
-        if self.debug:
-            print(f"Removed old folder: {old_path}")
-        self.pref["NAME"] = new_name
-        self.name = new_name
-        if self.debug:
-            print(f"Changed name of folder to {new_path}")
-        self.update_pref_hash()
-    except Exception as e:
-        print(f"Error renaming folder from {old_path} to {new_path}: {e}")
-        return -1
+        try:
+            shutil.copytree(old_path, new_path)
+            if self.debug:
+                print(f"Copied folder from {old_path} to {new_path}")
+            shutil.rmtree(old_path)
+            if self.debug:
+                print(f"Removed old folder: {old_path}")
+            self.pref["NAME"] = new_name
+            self.name = new_name
+            if self.debug:
+                print(f"Changed name of folder to {new_path}")
+            self.update_pref_hash()
+        except Exception as e:
+            print(f"Error renaming folder from {old_path} to {new_path}: {e}")
+            return -1
 
     def update_main(self, new_main):
-    """Updates main folder name"""
-    new_path = self.main_folder_path / self.name / new_main
-    old_path = self.main_folder_path / self.name / self.main
-    
-    if new_path == old_path:
-        print("Cannot be the same path")
-        return -1
+        """Updates main folder name"""
+        new_path = self.main_folder_path / self.name / new_main
+        old_path = self.main_folder_path / self.name / self.main
+        
+        if new_path == old_path:
+            print("Cannot be the same path")
+            return -1
 
-    if os.path.exists(new_path):
-        print(f"Destination path '{new_main}' already exists!")
-        return -1
+        if os.path.exists(new_path):
+            print(f"Destination path '{new_main}' already exists!")
+            return -1
 
-    try:
-        shutil.copytree(old_path, new_path)
-        if self.debug:
-            print(f"Copied folder from {old_path} to {new_path}")
-        shutil.rmtree(old_path)
-        if self.debug:
-            print(f"Removed old folder: {old_path}")
-        self.pref["MAIN"] = new_main
-        self.main = new_main
-        if self.debug:
-            print(f"Changed main folder name to {new_path}")
-        self.update_pref_hash()
+        try:
+            shutil.copytree(old_path, new_path)
+            if self.debug:
+                print(f"Copied folder from {old_path} to {new_path}")
+            shutil.rmtree(old_path)
+            if self.debug:
+                print(f"Removed old folder: {old_path}")
+            self.pref["MAIN"] = new_main
+            self.main = new_main
+            if self.debug:
+                print(f"Changed main folder name to {new_path}")
+            self.update_pref_hash()
 
-    except Exception as e:
-        print(f"Error renaming main folder from {old_path} to {new_path}: {e}")
-        return -1
+        except Exception as e:
+            print(f"Error renaming main folder from {old_path} to {new_path}: {e}")
+            return -1
 
 
     def update_tag(self, new):

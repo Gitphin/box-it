@@ -22,6 +22,8 @@ def check_exists(path):
 config.load_ext_hash()
 config.load_pref_hash()
 config.load_main_path_hash()
+# config.update_name("Testing")
+# config.update_main("Test")
 # config.update_path(pathlib.Path.home() / 'Desktop' / 'Things')
 
 # Get user input for file name (WILL CHANGE TO DRAG/DROP"
