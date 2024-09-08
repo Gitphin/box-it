@@ -3,8 +3,15 @@ import os
 import pathlib
 import shutil
 
+
 class Config:
-    def __init__(self, ext_path='types_config.json', pref_path = 'pref_config.json', main_path = 'main_path_config.json', debug=True):
+    def __init__(
+        self,
+        ext_path="types_config.json",
+        pref_path="pref_config.json",
+        main_path="main_path_config.json",
+        debug=True,
+    ):
         self.debug = debug
 
         self.ext_path = ext_path
@@ -13,11 +20,32 @@ class Config:
         # Init file extensions and tags
 
         self.file_extensions = {
-            "Images": ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'tiff'],
-            "Videos": ['mp4', 'mkv', 'mov', 'avi', 'flv', 'wmv'],
-            "Coding": ['py', 'js', 'html', 'css', 'cpp', 'java', 'cs', 'rb', 'php', 'ts'],
-            "Documents": ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'odt'],
-            "Misc": []
+            "Images": ["jpg", "jpeg", "png", "gif", "bmp", "svg", "tiff"],
+            "Videos": ["mp4", "mkv", "mov", "avi", "flv", "wmv"],
+            "Coding": [
+                "py",
+                "js",
+                "html",
+                "css",
+                "cpp",
+                "java",
+                "cs",
+                "rb",
+                "php",
+                "ts",
+            ],
+            "Documents": [
+                "pdf",
+                "doc",
+                "docx",
+                "ppt",
+                "pptx",
+                "xls",
+                "xlsx",
+                "txt",
+                "odt",
+            ],
+            "Misc": [],
         }
 
         self.pref = {
@@ -29,9 +57,7 @@ class Config:
             "MAIN": "Main",
         }
 
-        self.path = {
-            "PATH": pathlib.Path.home() / 'Desktop'
-        }
+        self.path = {"PATH": pathlib.Path.home() / "Desktop"}
 
         self.name = self.pref["NAME"]
         self.main_folder_path = self.path["PATH"]
@@ -41,13 +67,12 @@ class Config:
         self.types = self.pref["TYPES"]
         self.category = self.pref["CATEGORY"]
 
-
     def update_main_path_hash(self):
         """Updates the main path hash JSON"""
         try:
             # Convert path to string
             path_dict = {k: str(v) for k, v in self.path.items()}
-            with open(self.main_path, 'w') as json_file:
+            with open(self.main_path, "w") as json_file:
                 json.dump(path_dict, json_file, indent=4)
         except Exception as e:
             print(f"Could not write to file {self.main_path}: {e}")
@@ -57,7 +82,7 @@ class Config:
         """Loads in main path hash if exists"""
         if os.path.exists(self.main_path):
             try:
-                with open(self.main_path, 'r') as json_file:
+                with open(self.main_path, "r") as json_file:
                     path_dict = json.load(json_file)
                     # Convert string back to path
                     self.path = {k: pathlib.Path(v) for k, v in path_dict.items()}
@@ -71,11 +96,10 @@ class Config:
             if self.debug:
                 print("Loaded default path in")
 
-
     def update_pref_hash(self):
         """Updates the preference hash JSON"""
         try:
-            with open(self.pref_path, 'w') as json_file:
+            with open(self.pref_path, "w") as json_file:
                 json.dump(self.pref, json_file, indent=4)
         except Exception as e:
             print(f"Could not write to file {self.pref_path}: {e}")
@@ -85,7 +109,7 @@ class Config:
         """Loads in pref hash if exists"""
         if os.path.exists(self.pref_path):
             try:
-                with open(self.pref_path, 'r') as json_file:
+                with open(self.pref_path, "r") as json_file:
                     self.pref = json.load(json_file)
                     self.name = self.pref["NAME"]
                     self.tag = self.pref["TAG"]
@@ -100,13 +124,12 @@ class Config:
                 return -1
         else:
             if self.debug:
-                print("Loaded default preferences in")  
-
+                print("Loaded default preferences in")
 
     def update_ext_hash(self):
         """Refresh current extension hash"""
         try:
-            with open(self.ext_path, 'w') as json_file:
+            with open(self.ext_path, "w") as json_file:
                 json.dump(self.file_extensions, json_file, indent=4)
         except Exception as e:
             print(f"Could not write to file {self.ext_path}: {e}")
@@ -116,7 +139,7 @@ class Config:
         """Load ext hash"""
         if os.path.exists(self.ext_path):
             try:
-                with open(self.ext_path, 'r') as json_file:
+                with open(self.ext_path, "r") as json_file:
                     self.file_extensions = json.load(json_file)
                     if self.debug:
                         print(f"Loaded in user type extension config")
@@ -126,7 +149,6 @@ class Config:
         else:
             if self.debug:
                 print(f"Loaded default extensions in")
-
 
     def update_path(self, path):
         """Updates path of wrapper folder, takes in PathLib"""
@@ -163,11 +185,11 @@ class Config:
         """Updates name of wrapper folder"""
         new_path = self.main_folder_path / new_name
         old_path = self.main_folder_path / self.name
-        
+
         if new_path == old_path:
             print("Cannot be the same path")
             return -1
-            
+
         if os.path.exists(new_path):
             print(f"Destination path '{new_name}' already exists!")
             return -1
@@ -192,7 +214,7 @@ class Config:
         """Updates main folder name"""
         new_path = self.main_folder_path / self.name / new_main
         old_path = self.main_folder_path / self.name / self.main
-        
+
         if new_path == old_path:
             print("Cannot be the same path")
             return -1
@@ -218,13 +240,12 @@ class Config:
             print(f"Error renaming main folder from {old_path} to {new_path}: {e}")
             return -1
 
-
     def update_tag(self, new):
         """Updates tag indicator"""
         self.pref["TAG"] = new
         self.tag = new
         self.update_pref_hash()
-    
+
     def update_toggle(self, t):
         """Updates toggle filters"""
         if t in self.pref:
@@ -233,14 +254,15 @@ class Config:
         else:
             print(f"{t} is not a valid preference")
 
-    
     def new_category_type(self, name, exts):
         """Add new category/folder"""
         if name in self.file_extensions:
             print(f"Category '{name}' already exists!")
         else:
             self.file_extensions[name] = []
-            self.file_extensions[name].extend([ext for ext in exts if ext not in self.file_extensions[name]])
+            self.file_extensions[name].extend(
+                [ext for ext in exts if ext not in self.file_extensions[name]]
+            )
             self.update_ext_hash()
 
     def del_category_type(self, name):
@@ -265,7 +287,9 @@ class Config:
         if name not in self.file_extensions:
             print(f"Category '{name}' does not exist!")
         else:
-            self.file_extensions[name].extend([ext for ext in exts if ext not in self.file_extensions[name]])
+            self.file_extensions[name].extend(
+                [ext for ext in exts if ext not in self.file_extensions[name]]
+            )
             self.update_ext_hash()
 
     def del_exts(self, name, exts):
@@ -273,9 +297,7 @@ class Config:
         if name not in self.file_extensions:
             print(f"Category '{name}' does not exist!")
         else:
-            self.file_extensions[name] = [ext for ext in self.file_extensions[name] if ext not in exts]
+            self.file_extensions[name] = [
+                ext for ext in self.file_extensions[name] if ext not in exts
+            ]
             self.update_ext_hash()
-
-
-
-
