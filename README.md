@@ -12,6 +12,7 @@
 - ~~Filter out specific files into a different sub-dir (ex: Images, Documents, Coding, etc.)~~
 - ~~Change where it stores these files (folder type)~~
 - ~~Be able to change what it names each folder~~
+- ~~Add a tagging system (ex: foo-TAG.png)~~
 
 ## Visualization (PyGUI?)
 - Add GUI
