@@ -12,13 +12,14 @@ class Config:
         main_path="main_path_config.json",
         debug=True,
     ):
+        # Prints outputs to console, set to false if you do not like this
         self.debug = debug
-
+        # Do not change or modify these paths
         self.ext_path = ext_path
         self.pref_path = pref_path
         self.main_path = main_path
-        # Init file extensions and tags
-
+        # Default vals, can add categories or extensions here and the .json file
+        # You may need to delete the types_config.json file if you change via this file
         self.file_extensions = {
             "Images": ["jpg", "jpeg", "png", "gif", "bmp", "svg", "tiff"],
             "Videos": ["mp4", "mkv", "mov", "avi", "flv", "wmv"],
@@ -53,12 +54,12 @@ class Config:
             "CATEGORY": True,
             "TYPES": True,
             "TAG": "-=-",
-            "NAME": "SortedFolder",
+            "NAME": "BoxIt",
             "MAIN": "Main",
         }
 
         self.path = {"PATH": pathlib.Path.home() / "Desktop"}
-
+        # Init configs
         self.name = self.pref["NAME"]
         self.main_folder_path = self.path["PATH"]
         self.tag = self.pref["TAG"]
@@ -165,7 +166,6 @@ class Config:
                 shutil.copytree(old_path, new_path)
                 if self.debug:
                     print(f"Copied folder from {old_path} to {new_path}")
-
                 shutil.rmtree(old_path)
                 if self.debug:
                     print(f"Removed old path: {old_path}")
@@ -183,6 +183,11 @@ class Config:
 
     def update_name(self, new_name):
         """Updates name of wrapper folder"""
+
+        if not new_name.strip():
+            print("Name cannot be empty!")
+            return -1
+
         new_path = self.main_folder_path / new_name
         old_path = self.main_folder_path / self.name
 
@@ -212,6 +217,10 @@ class Config:
 
     def update_main(self, new_main):
         """Updates main folder name"""
+        if not new_main.strip():
+            print("Main folder name cannot be empty!")
+            return -1
+
         new_path = self.main_folder_path / self.name / new_main
         old_path = self.main_folder_path / self.name / self.main
 
@@ -245,14 +254,32 @@ class Config:
         self.pref["TAG"] = new
         self.tag = new
         self.update_pref_hash()
+        if self.debug:
+            print(f"Updated filter tag to {self.tag}")
 
-    def update_toggle(self, t):
+    def update_years(self, state):
         """Updates toggle filters"""
-        if t in self.pref:
-            self.pref[t] = not self.pref[t]
-            self.update_pref_hash()
-        else:
-            print(f"{t} is not a valid preference")
+        self.pref["YEAR"] = state
+        self.year = state
+        self.update_pref_hash()
+        if self.debug:
+            print(f"Updated displaying years to {self.year}")
+
+    def update_cat(self, state):
+        """Updates toggle filters"""
+        self.pref["CATEGORY"] = state
+        self.category = state
+        self.update_pref_hash()
+        if self.debug:
+            print(f"Updated displaying categories to {self.category}")
+
+    def update_types(self, state):
+        """Updates toggle filters"""
+        self.pref["TYPES"] = state
+        self.types = state
+        self.update_pref_hash()
+        if self.debug:
+            print(f"Updated displaying types to {self.types}")
 
     def new_category_type(self, name, exts):
         """Add new category/folder"""

@@ -1,8 +1,20 @@
 # Box It - Drag-And-Drop File Manager
 
-# TODO:
+## Linux (in same dir)
+```
+python3 main.py
+```
+## Windows (in same dir)
+```
+python main.py
+```
 
-## Create auto-sort script (Python)
+### Can add this script to PATH as well
+---
+
+# TODO
+
+## Create auto-sort script
 - ~~Sort by file type~~
 - ~~Make sub-directories for each file type~~
 - ~~Have it work for Windows/Mac/Linux OS~~
@@ -14,14 +26,12 @@
 - ~~Be able to change what it names each folder~~
 - ~~Add a tagging system (ex: foo-TAG.png)~~
 
-## Visualization (PyGUI?)
+## Visualization
 - ~~Add GUI (PyQT)~~
 - ~~Add Folder drag & drop feature~~
-- Add buttons & filter options within menu
-- Clean up GUI, add icon / other metadata
-- Add start-up screen (optional)
-- Desktop/color theming? (optional)
+- ~~Add buttons & filter options within menu~~
+- ~~Clean up GUI, add icon / other metadata~~
+- Add advanced settings (path changing, types, categories)
 
-## Installer/Finishing touches (?)
+## Finishing touches
 - Update README
-- Make an installer? Could just leave as a script (will leave as script likely)

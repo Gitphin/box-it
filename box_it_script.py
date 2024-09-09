@@ -8,6 +8,10 @@ from config import Config
 
 config = Config(debug=True)
 
+#################################################
+# BOX-IT MAIN SCRIPT (DOES THE FILE MOVING FUN) #
+#################################################
+
 
 def file_sorting(sort_dir, file_ext):
     """Get file type to store file in proper folder"""
@@ -21,30 +25,31 @@ def check_exists(path):
     """Create a folder if path dne."""
     if not path.exists():
         path.mkdir(parents=True)
+        if config.debug:
+            print(f"Folder created at {path}")
 
 
 def handle_file_drop(file_path):
     """Handle loading in the file being dropped"""
-    config.load_ext_hash()
-    config.load_pref_hash()
-    config.load_main_path_hash()
-    # config.update_name("BoxIt")
-    # config.update_main("Main")
-    # config.update_path(pathlib.Path.home() / 'Desktop' / 'Things')
-
-    # file_input = input("Enter file name with extension: ")
-    # file_path = pathlib.Path.cwd() / file_input
     file_input = os.path.basename(file_path)
+
     # Check if file path exists and is a valid file
     if not file_path.exists() or not file_path.is_file():
         print(f"File path '{file_path}' either invalid or DNE")
         sys.exit(1)
+
+    # Loads in configs to apply any changes
+    config.load_ext_hash()
+    config.load_pref_hash()
+    config.load_main_path_hash()
+
     # Split the name and file extension
     name = pathlib.Path(file_input).stem
     ext = pathlib.Path(file_input).suffix
     get_name = str(name)
     get_ext = str(ext)[1:]
-    # Get tag (separated by -), change file name to remove tag and place in proper folder, and get starting path
+
+    # Get tag, change file name to remove tag and place in proper folder, and get starting path
     get_tag = get_name.split(config.tag)
     if len(get_tag) >= 2:
         file_input = get_tag[0] + "." + get_ext
@@ -71,7 +76,6 @@ def handle_file_drop(file_path):
 
     # Gets proper year folder
     if config.year:
-        # Get year file was created
         create_time = file_path.stat().st_ctime
         create_date = str(datetime.datetime.fromtimestamp(create_time))[:4]
         year_folder = sort_dir / create_date
@@ -81,4 +85,5 @@ def handle_file_drop(file_path):
     # Moves file into final folder
     sort_file_path = sort_dir / file_input
     shutil.move(str(file_path), str(sort_file_path))
-    print(f"Moved to: {sort_file_path}")
+    if config.debug:
+        print(f"Moved to: {sort_file_path}")

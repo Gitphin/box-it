@@ -1,42 +1,54 @@
+import os
 import pathlib
 import sys
-import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWidget
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import (QLabel, QMainWindow, QPushButton, QVBoxLayout,
+                             QWidget)
 
 import box_it_script
+from settings import SettingsWindow
 
-# DONE WITH HELP OF AI
+
 class DragDropWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
+        self.config = config
 
-        # Set up the main window
         self.setWindowTitle("BoxIt")
         self.setGeometry(100, 100, 500, 400)
-
-        # Set up the label to display the file path
+        self.setWindowIcon(QIcon("icons/main-icon.svg"))
         self.label = QLabel("Drag a file or folder here", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setStyleSheet("QLabel { border: 2px dashed gray; }")
 
-        # Set up the central widget with a layout
+        # Settings button
+        self.settings_button = QPushButton("Settings", self)
+        self.settings_button.clicked.connect(self.open_settings)
+
         central_widget = QWidget(self)
         layout = QVBoxLayout(central_widget)
         layout.addWidget(self.label)
+        layout.addWidget(self.settings_button)
         self.setCentralWidget(central_widget)
 
-        # Enable drag and drop for the window
+        # Enable drag/drop
         self.setAcceptDrops(True)
 
-    # Override the dragEnterEvent to accept the drag
+    def open_settings(self):
+        """Open the settings dialogue window"""
+        settings_window = SettingsWindow(self.config, self)
+        settings_window.exec_()
+
     def dragEnterEvent(self, event):
+        """drag event override"""
         if event.mimeData().hasUrls():
             event.acceptProposedAction()
 
     # Override the dropEvent to handle file or folder drop
     def dropEvent(self, event):
+        """drop override, handle"""
         if event.mimeData().hasUrls():
             urls = event.mimeData().urls()
             for url in urls:
@@ -56,10 +68,3 @@ class DragDropWindow(QMainWindow):
             if item.is_file():
                 box_it_script.handle_file_drop(item)
         self.label.setText(f"Folder dropped and processed: {folder_path}")
-
-# Set up the application and run the main window
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = DragDropWindow()
-    window.show()
-    sys.exit(app.exec_())
